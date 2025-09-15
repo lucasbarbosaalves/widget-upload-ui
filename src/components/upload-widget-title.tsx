@@ -8,7 +8,7 @@ export function UploadWidgetTitle() {
       <UploadCloud className="size-4 text-zinc-400" strokeWidth={1.5} />
       {isAnyPendingUpload ? (
         <span className="flex items-baseline gap-1">
-          Uplaoding
+          Uploading
           <span className="text-xs text-zinc-400 tabular-nums">{uploadGlobalPercentage}%</span>
         </span>
       ) : (
