@@ -2,20 +2,36 @@ import * as Collapsible from '@radix-ui/react-collapsible';
 import { UploadWidgetDropzone } from './upload-widget-dropzone';
 import { UploadWidgetHeader } from './upload-widget-header';
 import { UploadWidgetList } from './upload-widget-upload-list';
-import { useState } from 'react';
 import { UploadWidgetMinimizedButton } from './upload-widget-minimized-button';
+import { motion, useCycle } from 'motion/react';
 
 export function UploadWidget() {
-  // Inicia ABERTO (true) para mostrar o conteúdo por padrão
-  const [isWidgetOpen, setIsWidgetOpen] = useState(true);
+  const [isWidgetOpen, toggleWidgetOpen] = useCycle(false, true);
 
   return (
-    <Collapsible.Root open={isWidgetOpen} onOpenChange={setIsWidgetOpen}>
-      <div className="bg-zinc-900 overflow-hidden w-[360px] rounded-xl shadow-shape">
-        {/* Mostra o botão minimizado apenas quando está FECHADO */}
+    <Collapsible.Root open={isWidgetOpen} onOpenChange={() => toggleWidgetOpen()}>
+      <motion.div
+        className="bg-zinc-900 overflow-hidden max-w-[360px] rounded-xl shadow-shape"
+        animate={isWidgetOpen ? 'open' : 'closed'}
+        variants={{
+          closed: {
+            width: 'max-content',
+            height: 44,
+            transition: {
+              type: 'keyframes',
+            },
+          },
+          open: {
+            width: 360,
+            height: 'auto',
+            transition: {
+              duration: 0.1,
+            },
+          },
+        }}
+      >
         {!isWidgetOpen && <UploadWidgetMinimizedButton />}
 
-        {/* Conteúdo que será mostrado/escondido */}
         <Collapsible.Content>
           <UploadWidgetHeader />
 
@@ -27,7 +43,7 @@ export function UploadWidget() {
             <UploadWidgetList />
           </div>
         </Collapsible.Content>
-      </div>
+      </motion.div>
     </Collapsible.Root>
   );
 }
