@@ -1,5 +1,11 @@
 @import 'tailwindcss';
 
+@property --border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
 :root {
   --opacity-4: 0.04;
   --font-size-xxs: 0.625rem;
@@ -14,6 +20,11 @@
   --font-family-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
 
+@keyframes border {
+  to {
+    --border-angle: 360deg;
+  }
+}
 @layer utilities {
   .text-xxs {
     font-size: var(--font-size-xxs);
@@ -29,6 +40,9 @@
 
   .bg-white-4 {
     background-color: rgba(255, 255, 255, var(--opacity-4));
+  }
+  .animate-border {
+    animation: border 2s linear infinite;
   }
 }
 
