@@ -4,8 +4,6 @@ import { UploadWidgetUploadItem } from './upload-widget-upload-item';
 export function UploadWidgetList() {
   const uploads = useUploads((store) => store.uploads);
 
-  console.log(uploads);
-
   const isUploadListEmpty = uploads.size === 0;
 
   return (
@@ -18,7 +16,7 @@ export function UploadWidgetList() {
       ) : (
         <div className="flex flex-col gap-2">
           {Array.from(uploads.entries()).map(([uploadId, upload]) => {
-            return <UploadWidgetUploadItem key={uploadId} upload={upload} />;
+            return <UploadWidgetUploadItem key={uploadId} upload={upload} uploadId={uploadId} />;
           })}
         </div>
       )}
