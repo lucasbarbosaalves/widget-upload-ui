@@ -17,9 +17,9 @@ export async function uploadFileToStorage(
 
   data.append('file', file);
 
-  const response = await axios.post('http://localhost:3000/uploads', data, {
+  const response = await axios.post<{ url: string }>('http://localhost:3000/uploads', data, {
     headers: {
-      'Content-Type': 'multipar/form-data',
+      'Content-Type': 'multipart/form-data',
     },
     signal: opts?.signal,
     onUploadProgress(progressEvent) {
